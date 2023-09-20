@@ -18,5 +18,5 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t public.ecr.aws/z4e7u8c6/<YOUR_IMAGE_NAME>:latest .
-          docker push public.ecr.aws/z4e7u8c6/<YOUR_IMAGE_NAME>:latest
+          docker build -t public.ecr.aws/z4e7u8c6/register:latest .
+          docker push public.ecr.aws/z4e7u8c6/register:latest

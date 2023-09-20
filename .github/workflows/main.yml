@@ -32,4 +32,4 @@ jobs:
           TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
+          docker push public.ecr.aws/z4e7u8c6/register:$TAG

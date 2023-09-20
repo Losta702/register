@@ -26,8 +26,7 @@
         }
     ?>
 
-    <h1>Check In App</h1>
-
+    <h1>Check In App Employees</h1>
     <form method="post">
         Name: <input type="text" name="name" required>
         <input type="submit" name="checkin" value="Check In">

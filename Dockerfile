@@ -19,7 +19,7 @@ RUN rm /tmp/xampp-installer.run
 EXPOSE 80 443 3306
 
 # Copy custom files to the htdocs directory
-COPY ./register /opt/lampp/htdocs/register
+#COPY ./register /opt/lampp/htdocs/register
 
 # Start XAMPP on container startup
 CMD ["/opt/lampp/xampp start"]

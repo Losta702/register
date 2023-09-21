@@ -1,4 +1,4 @@
-name: Push to ECR Public
+name: Register push
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  push-to-ecr:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,9 +14,22 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configure AWS CLI
-        run: aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} && aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build and Push Docker Image
+        id: build
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{secrets.AWS_ECR_REPO}}
+          TAG: latest
         run: |
-          docker build -t public.ecr.aws/z4e7u8c6/register:latest .
-          docker push public.ecr.aws/z4e7u8c6/register:latest
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$TAG
